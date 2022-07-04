@@ -1,22 +1,36 @@
+import { useContext } from "react";
 import { Outlet, Link } from "react-router-dom";
-import { ReactComponent as CrwnLogo } from '../../assets/crown.svg'
-import './navigation.style.scss'
+import { ReactComponent as CrwnLogo } from "../../assets/crown.svg";
+
+import { UserContext } from "../../context/user.context";
+import { signOutUser } from "../../utils/firebase/firebase.utils";
+
+import "./navigation.style.scss";
 
 const Navigation = () => {
+  const { currentUser } = useContext(UserContext);
+  console.log(currentUser);
+
   return (
     <>
       <div className="navigation">
         <Link className="logo-container" to="/">
-          <CrwnLogo className="logo"/>
+          <CrwnLogo className="logo" />
         </Link>
 
         <div className="nav-links-container">
           <Link className="nav-link" to="/shop">
             Shop
           </Link>
-          <Link className="nav-link" to="/signIn">
-            SIGN-IN
-          </Link>
+          {currentUser ? (
+            <span className="nav-link" onClick={signOutUser}>
+              SIGN OUT
+            </span>
+          ) : (
+            <Link className="nav-link" to="/auth">
+              SIGN-IN
+            </Link>
+          )}
         </div>
       </div>
       <Outlet />
