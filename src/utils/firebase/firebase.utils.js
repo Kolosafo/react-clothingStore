@@ -31,7 +31,8 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-initializeApp(firebaseConfig);
+// eslint-disable-next-line
+const firebaseApp = initializeApp(firebaseConfig);
 
 const googleprovider = new GoogleAuthProvider();
 googleprovider.setCustomParameters({
